@@ -45,6 +45,8 @@ const installMigration = () => {
     initTemplate,
     'utf8'
   );
+
+  console.info(`Migrations installed at /integrations/contentful ✨`);
 }
 
 export default installMigration;

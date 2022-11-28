@@ -74,6 +74,8 @@ const createMigration = (migrationName: string) => {
     migrationTemplate,
     'utf8'
   );
+
+  console.info(`${migrationFilename} created ✨`);
 }
 
 export default createMigration;

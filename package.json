@@ -1,6 +1,6 @@
 {
   "name": "@etchteam/contentful",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Helpers we use at Etch for working with Contentful",
   "main": "dist/index.js",
   "typings": "dist/index",
