@@ -1,6 +1,6 @@
 {
   "name": "@etchteam/contentful",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Helpers we use at Etch for working with Contentful",
   "main": "dist/index.js",
   "typings": "dist/index",
@@ -11,8 +11,14 @@
     "etch-contentful-cli": "dist/cli.js"
   },
   "exports": {
-    ".": "./dist/index.js",
-    "./validators": "./dist/validators.js"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./validators": {
+      "types": "./dist/validators.d.ts",
+      "default": "./dist/validators.js"
+    }
   },
   "scripts": {
     "build": "microbundle src/*.ts --format modern,cjs",
