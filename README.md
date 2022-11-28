@@ -35,10 +35,10 @@ When migrations are run, this will set the migration content type on your config
 #### New migration
 
 ```bash
-npx etch-contentful-cli migration:new MIGRATION_NAME
+npx etch-contentful-cli migration:new "MIGRATION_NAME"
 ```
 
-Creates a new migration file at `/integrations/contentful/migrations` with the `MIGRATION_NAME` provided.
+Creates a new migration file at `/integrations/contentful/migrations` with the `"MIGRATION_NAME"` provided.
 
 #### Run migrations
 
