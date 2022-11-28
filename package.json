@@ -45,5 +45,8 @@
     "contentful-migration": "^4.12.3",
     "dotenv": "^16.0.3",
     "lodash": "^4.17.21"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
