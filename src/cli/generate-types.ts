@@ -62,7 +62,7 @@ const renderContentType = (contentType: ContentType) => {
     })
     .join("\n");
 
-  return `export interface ${name} {\n  items {\n${fields}\n  }\n}`;
+  return `export interface ${name} {\n  items: {\n${fields}\n  }[]\n}`;
 }
 
 function renderAllContentTypes(contentTypes: Collection<ContentType, ContentTypeProps>): string {
