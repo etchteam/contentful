@@ -58,11 +58,11 @@ const renderContentType = (contentType: ContentType) => {
         Text: () => 'string',
       }
 
-      return `  ${field.id}${field.required ? '' : '?'}: ${functionMap[field.type](field)}`
+      return `    ${field.id}${field.required ? '' : '?'}: ${functionMap[field.type](field)}`
     })
     .join("\n");
 
-  return `export interface ${name} {\n${fields}\n}`;
+  return `export interface ${name} {\n  items {\n${fields}\n  }\n}`;
 }
 
 function renderAllContentTypes(contentTypes: Collection<ContentType, ContentTypeProps>): string {
