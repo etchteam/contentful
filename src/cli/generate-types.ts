@@ -5,7 +5,7 @@ import { Field, FieldType } from "contentful"
 import { SPACE_ID, MANAGEMENT_ACCESS_TOKEN, ENVIRONMENT, CONTENTFUL_DIR } from './config';
 import { upperFirst, camelCase } from "lodash"
 
-const renderLink = (field: Field) => {
+const renderLink = (field: Field, isArray?: boolean) => {
   if (field.linkType === 'Asset') {
     return `{ url: string; description: string; width: number; height: number; }`;
   }
@@ -14,7 +14,7 @@ const renderLink = (field: Field) => {
 
   if (contentTypes) {
     return contentTypes?.linkContentType
-      .map((contentType) => upperFirst(camelCase(contentType)))
+      .map((contentType) => `${upperFirst(camelCase(contentType))}${isArray ? 'Collection': ''}`)
       .join(' | ');
   }
 
@@ -32,7 +32,7 @@ const renderArray = (field: Field) => {
       linkType: field.items.linkType,
       validations: field.items.validations || []
     };
-    return `${renderLink(formattedField)}[]`;
+    return `${renderLink(formattedField, true)}`;
   }
 
   return 'unknown[]';
@@ -59,11 +59,14 @@ const renderContentType = (contentType: ContentType) => {
         Text: () => 'string',
       }
 
-      return `    ${fieldName}${field.required ? '' : '?'}: ${functionMap[field.type](field)}`
+      return `  ${fieldName}${field.required ? '' : '?'}: ${functionMap[field.type](field)}`
     })
-    .join("\n");
+    .join('\n');
 
-  return `export interface ${name} {\n  items: {\n${fields}\n  }[]\n}`;
+  return [
+    `export interface ${name} {\n${fields}\n}`,
+    `export interface ${name}Collection {\n  items: ${name}[]\n}`
+  ].join('\n\n');
 }
 
 function renderAllContentTypes(contentTypes: Collection<ContentType, ContentTypeProps>): string {
