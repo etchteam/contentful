@@ -1,11 +1,12 @@
 {
   "name": "@etchteam/contentful",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Helpers we use at Etch for working with Contentful",
   "main": "dist/index.js",
   "typings": "dist/index",
   "files": [
-    "dist"
+    "dist",
+    "tsconfig.json"
   ],
   "bin": {
     "etch-contentful-cli": "dist/cli.js"
