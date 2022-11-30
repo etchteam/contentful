@@ -88,7 +88,7 @@ const generateTypes = async (client: ClientAPI) => {
 
   fs.writeFileSync(
     path.join(typesDir, 'contentful.d.ts'),
-    `import { Document } from "@contentful/rich-text-types";\n\n${renderedTypes}`,
+    `import { Document } from "@contentful/rich-text-types";\n\n${renderedTypes}\n`,
     'utf8'
   );
 
