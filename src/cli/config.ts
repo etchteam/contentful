@@ -1,4 +1,7 @@
 import path from 'path';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 export const CONTENTFUL_DIR = path.join(path.resolve(), 'integrations', 'contentful');
 export const MIGRATION_DIR = path.join(CONTENTFUL_DIR, 'migrations');

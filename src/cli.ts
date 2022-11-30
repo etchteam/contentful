@@ -1,9 +1,6 @@
 #!/usr/bin/env node
 
-import * as dotenv from 'dotenv'
 import { Command } from 'commander';
-
-dotenv.config();
 
 import createMigration from './cli/create-migration';
 import installMigration from './cli/install-migration';
