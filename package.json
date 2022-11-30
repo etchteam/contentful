@@ -1,6 +1,6 @@
 {
   "name": "@etchteam/contentful",
-  "version": "1.1.5",
+  "version": "1.2.0",
   "description": "Helpers we use at Etch for working with Contentful",
   "main": "dist/index.js",
   "typings": "dist/index",
@@ -13,12 +13,11 @@
   },
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "default": "./dist/index.js"
-    },
-    "./validators": {
-      "types": "./dist/validators.d.ts",
-      "default": "./dist/validators.js"
+      "require": "./dist/index.js",
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.modern.mjs"
+      }
     }
   },
   "scripts": {

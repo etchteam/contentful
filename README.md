@@ -61,7 +61,7 @@ Generate Graphql API compatible types based on your content in Contentful
 Some basic validators are available to use with content types, they can be imported:
 
 ```javascript
-import { richText, symbol } from '@etchteam/contentful/validators';
+import { validator } from '@etchteam/contentful';
 ```
 
 Then used with their corresponding Contentful input type:
@@ -71,5 +71,5 @@ newEntity
   .createField('summary')
   .type('RichText')
   .name('Summary')
-  .validations(richText.boldAndItalicOnly);
+  .validations(validator.richText.boldAndItalicOnly);
 ```

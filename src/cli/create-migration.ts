@@ -4,8 +4,7 @@ import kebabCase from 'lodash/kebabCase';
 import { MIGRATION_DIR } from './config';
 
 const migrationTemplate =
-`import type { MigrationFunction } from '@etchteam/contentful';
-import { richText } from '@etchteam/contentful/validators';
+`import type { MigrationFunction, validator } from '@etchteam/contentful';
 
 const migrate: MigrationFunction = (migration) => {
   /*
@@ -20,7 +19,7 @@ const migrate: MigrationFunction = (migration) => {
       .createField('summary')
       .type('RichText')
       .name('Summary')
-      .validations(richText.boldAndItalicOnly)
+      .validations(validator.richText.boldAndItalicOnly)
       .required(true);
 
     // ---------------------------
