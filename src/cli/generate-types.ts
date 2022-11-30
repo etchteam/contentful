@@ -44,6 +44,7 @@ const renderContentType = (contentType: ContentType) => {
   const fields = contentType.fields
     .filter(field => !field.omitted)
     .map<string>(field => {
+      const fieldName = field.type === 'Array' ? `${field.id}Collection` : field.id;
       const functionMap: Record<FieldType, (field: Field) => string> = {
         Array: renderArray,
         Boolean: () => 'boolean',
@@ -58,7 +59,7 @@ const renderContentType = (contentType: ContentType) => {
         Text: () => 'string',
       }
 
-      return `    ${field.id}${field.required ? '' : '?'}: ${functionMap[field.type](field)}`
+      return `    ${fieldName}${field.required ? '' : '?'}: ${functionMap[field.type](field)}`
     })
     .join("\n");
 
