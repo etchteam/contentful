@@ -1,6 +1,6 @@
 {
   "name": "@etchteam/contentful",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "Helpers we use at Etch for working with Contentful",
   "main": "dist/index.js",
   "typings": "dist/index",
@@ -42,6 +42,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.3.0",
     "@commitlint/config-conventional": "^17.3.0",
+    "@contentful/rich-text-types": "^15.15.1",
     "@types/lodash": "^4.14.190",
     "@types/node": "^18.11.9",
     "husky": "^8.0.0",

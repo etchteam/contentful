@@ -5,6 +5,7 @@ import { Command } from 'commander';
 import createMigration from './cli/create-migration';
 import installMigration from './cli/install-migration';
 import runMigration from './cli/run-migration';
+import generateTypes from './cli/generate-types';
 
 const program = new Command();
 
@@ -23,5 +24,10 @@ program
   .command('migration:run')
   .description('Run all migrations that haven\'t already been run')
   .action(runMigration);
+
+program
+  .command('typegen')
+  .description('Generate a .d.ts file from your Contentful content')
+  .action(generateTypes);
 
 program.parseAsync(process.argv);

@@ -48,6 +48,14 @@ npx etch-contentful-cli migration:run
 
 Runs all migrations that haven't already been run
 
+#### Generate types
+
+```bash
+npx etch-contentful-cli typegen
+```
+
+Generate Graphql API compatible types based on your content in Contentful
+
 ## Validators
 
 Some basic validators are available to use with content types, they can be imported:
