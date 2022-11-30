@@ -1,6 +1,6 @@
 {
   "name": "@etchteam/contentful",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Helpers we use at Etch for working with Contentful",
   "main": "dist/index.js",
   "typings": "dist/index",
@@ -54,7 +54,8 @@
     "contentful-management": "^10.21.4",
     "contentful-migration": "^4.12.3",
     "dotenv": "^16.0.3",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "ts-node": "^10.9.1"
   },
   "publishConfig": {
     "access": "public"
