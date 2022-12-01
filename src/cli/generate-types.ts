@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { createClient, ClientAPI, Collection, ContentTypeProps, ContentType } from 'contentful-management';
-import { Field, FieldType } from "contentful"
+import { Field, FieldType} from "contentful"
 import { SPACE_ID, MANAGEMENT_ACCESS_TOKEN, ENVIRONMENT, CONTENTFUL_DIR } from './config';
 import { upperFirst, camelCase } from "lodash"
 
@@ -40,7 +40,9 @@ const renderArray = (field: Field) => {
       linkType: field.items.linkType,
       validations: field.items.validations || []
     };
-    return `${renderLink(formattedField, true)}`;
+    return formattedField.linkType === 'Asset'
+      ? `{\n    items: ${renderLink(formattedField, true)}[]\n  }`
+      : renderLink(formattedField, true);
   }
 
   return 'unknown[]';
