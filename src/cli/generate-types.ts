@@ -7,7 +7,15 @@ import { upperFirst, camelCase } from "lodash"
 
 const renderLink = (field: Field, isArray?: boolean) => {
   if (field.linkType === 'Asset') {
-    return `{ url: string; description: string; width: number; height: number; }`;
+    return `{
+      url: string;
+      title: string;
+      description: string;
+      width: number;
+      height: number;
+      size: number;
+      contentType: string;
+    }`;
   }
 
   const contentTypes = field.validations.find(validation => !!validation.linkContentType)
