@@ -25,6 +25,7 @@
     "src/**/*.ts"
   ],
   "ts-node": {
+    "transpileOnly": true,
     "compilerOptions": {
       "module": "commonjs",
       "allowJs": true,
