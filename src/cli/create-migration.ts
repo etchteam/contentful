@@ -4,7 +4,8 @@ import kebabCase from 'lodash/kebabCase';
 import { MIGRATION_DIR } from './config';
 
 const migrationTemplate =
-`import type { MigrationFunction, validator } from '@etchteam/contentful';
+`/* eslint-disable @typescript-eslint/ban-ts-comment */
+import type { MigrationFunction, validator } from '@etchteam/contentful';
 
 const migrate: MigrationFunction = (migration) => {
   /*
@@ -59,7 +60,7 @@ const migrate: MigrationFunction = (migration) => {
 };
 
 // @ts-ignore
-export = migrate; // eslint-disable-line
+export = migrate;
 `;
 
 const createMigration = (migrationName: string) => {
