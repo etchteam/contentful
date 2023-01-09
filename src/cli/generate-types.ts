@@ -111,6 +111,7 @@ const runTypeGeneration = async () => {
     await generateTypes(client);
   } catch (error) {
     console.error(error);
+    throw new Error('🚨 Error generating types');
   }
 };
 
