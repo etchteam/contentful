@@ -71,6 +71,7 @@ const runMigration = async () => {
     await migrate(client);
   } catch (error) {
     console.error(error);
+    throw new Error('🚨 Error running migrations');
   }
 };
 
