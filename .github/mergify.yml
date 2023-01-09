@@ -1,0 +1,46 @@
+---
+pull_request_rules:
+  - name: Merge dependabot PRs when all checks pass
+    conditions:
+      - and:
+        - author~=^dependabot(|-preview)\[bot\]$
+        - check-success=SonarCloud Code Analysis
+        - check-success~=^security/snyk
+        - label!=wontfix
+    actions:
+      merge:
+        method: merge
+  - name: Merge Snyk PRs when all checks pass
+    conditions:
+      - and:
+        - title~=^\[Snyk\]
+        - head~=^snyk-fix
+        - check-success~=^security/snyk
+        - check-success=SonarCloud Code Analysis
+        - label!=wontfix
+    actions:
+      merge:
+        method: merge
+  - name: Merge when all checks pass and the PR has been approved
+    conditions:
+      - and:
+        - check-success~=^security/snyk
+        - check-success=SonarCloud Code Analysis
+        - "#approved-reviews-by>=1"
+        - "#changes-requested-reviews-by=0"
+    actions:
+      merge:
+        method: merge
+  - name: Ask for reviews
+    conditions:
+      - -closed
+      - -draft
+    actions:
+      request_reviews:
+        users:
+          - JoshTheWanderer
+          - DanWebb
+          - gavmck
+          - ella-etch
+          - Carl-J-M
+        random_count: 2
