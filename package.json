@@ -22,7 +22,7 @@
   },
   "scripts": {
     "build": "microbundle src/*.ts --format modern,cjs",
-    "prepare": "husky install && npm run build"
+    "prepare": "npm run build"
   },
   "keywords": [
     "contentful",
