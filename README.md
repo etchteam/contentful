@@ -1,6 +1,6 @@
 # @etchteam/contentful
 
-Helpers we use at [Etch](https://etch.co) for working with Contentful
+Helpers we use at [Etch](https://etch.co) for working with Contentful.
 
 ## Install
 
