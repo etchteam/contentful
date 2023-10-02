@@ -48,12 +48,12 @@ npx etch-contentful-cli migration:run
 
 Runs all migrations that haven't already been run.
 
-Accepts an optional  `--projects <projectOne,projectTwo>` argument which allows migrations to be filtered.
+The `migration:run` command accepts an optional projects argument `--projects <projectOne,projectTwo>`.
 
-Projects can be set per migration, by exporting a projects array:
+This will filter out any migrations that don't export a matching project name as part of its `module.exports.projects` array:
 
 ```javascript
-export const projects = ['projectOne', 'projectTwo'];
+module.exports.projects = ['projectOne', 'projectTwo'];
 ```
 
 If no projects argument is provided, all migrations will run.
