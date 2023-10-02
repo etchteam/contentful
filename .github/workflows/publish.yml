@@ -19,6 +19,7 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
+      - run: npm ci
       - name: Publish
         uses: cycjimmy/semantic-release-action@v3
         with:
