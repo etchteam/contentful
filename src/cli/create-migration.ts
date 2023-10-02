@@ -4,8 +4,7 @@ import kebabCase from 'lodash/kebabCase';
 import { MIGRATION_DIR } from './config';
 
 const migrationTemplate =
-`/* eslint-disable @typescript-eslint/ban-ts-comment */
-import type { MigrationFunction, validator } from '@etchteam/contentful';
+`import type { MigrationFunction, validator } from '@etchteam/contentful';
 
 const migrate: MigrationFunction = (migration) => {
   /*
@@ -59,15 +58,16 @@ const migrate: MigrationFunction = (migration) => {
   */
 };
 
-// @ts-ignore
-export = migrate;
+module.exports = migrate; // This has to be a CJS compatible export
+
+// Optionally set the projects this migration should run on
+// Migrations can be filtered using the 'projects' cli option (eg. migration:run --projects projectOne,projectTwo)
+// module.exports.projects = ['projectOne'];
 `;
 
 const createMigration = (migrationName: string) => {
   const migrationFiles = fs.readdirSync(MIGRATION_DIR);
-  const lastMigration = migrationFiles[migrationFiles.length - 1];
-  const newMigrationNumber = parseInt(lastMigration.split('-')[0]) + 1;
-  const migrationFilename = `${newMigrationNumber}-${kebabCase(migrationName)}.ts`;
+  const migrationFilename = `${migrationFiles.length}-${kebabCase(migrationName)}.ts`;
 
   fs.writeFileSync(
     path.join(MIGRATION_DIR, migrationFilename),

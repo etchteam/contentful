@@ -46,7 +46,17 @@ Creates a new migration file at `/integrations/contentful/migrations` with the `
 npx etch-contentful-cli migration:run
 ```
 
-Runs all migrations that haven't already been run
+Runs all migrations that haven't already been run.
+
+Accepts an optional  `--projects <projectOne,projectTwo>` argument which allows migrations to be filtered.
+
+Projects can be set per migration, by exporting a projects array:
+
+```javascript
+export const projects = ['projectOne', 'projectTwo'];
+```
+
+If no projects argument is provided, all migrations will run.
 
 #### Generate types
 
