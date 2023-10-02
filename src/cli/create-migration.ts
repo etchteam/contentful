@@ -60,9 +60,9 @@ const migrate: MigrationFunction = (migration) => {
 
 module.exports = migrate; // This has to be a CJS compatible export
 
-// Optionally set the projects this migration should run on
-// Migrations can be filtered using the 'projects' cli option (eg. migration:run --projects projectOne,projectTwo)
-// module.exports.projects = ['projectOne'];
+// Optionally set the spaces this migration should run on
+// Migrations can be filtered using the 'spaces' cli option (eg. migration:run --spaces spaceOne,spaceTwo)
+// module.exports.spaces = ['spaceOne'];
 `;
 
 const createMigration = (migrationName: string) => {

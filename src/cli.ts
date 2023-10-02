@@ -24,8 +24,8 @@ program
   .command('migration:run')
   .description('Run all migrations that haven\'t already been run')
   .option(
-    '-p, --projects <projectOne,projectTwo>',
-    'Project names (separated by commas) to run this migration for'
+    '-s, --spaces <spaceOne,spaceTwo>',
+    'Space names (separated by commas) to run this migration for'
   )
   .action(runMigration);
 
