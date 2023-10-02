@@ -41,7 +41,7 @@ const addMigrationHistory = async (client: ClientAPI, filename: string) => {
   console.info(`✅ ${filename} \n\n`);
 }
 
-const migrate = async (client: ClientAPI, projectsToRun: string[]) => {
+const migrate = async (client: ClientAPI, enabledSpaces: string[]) => {
   const history = await getMigrationHistory(client);
   const files = fs.readdirSync(MIGRATION_DIR);
   const newMigrations = difference(files, history);
@@ -54,12 +54,12 @@ const migrate = async (client: ClientAPI, projectsToRun: string[]) => {
 
   for (const filename of newMigrations) {
     const filePath = path.join(MIGRATION_DIR, filename);
-    const anImport = require(path.join(MIGRATION_DIR, filename));
-    const projects = anImport.projects ?? [];
-    const hasProject = projectsToRun.some((project) => projects.includes(project));
+    const migration = require(path.join(MIGRATION_DIR, filename));
+    const spaces = migration.spaces ?? [];
+    const shouldRunForSpace = enabledSpaces.some((space) => spaces.includes(space));
 
-    if (projects?.length > 0 && !hasProject) {
-      console.info(`\nSkipping ${filename} as it is not configured to run on ${projects.join(', ')}\n`);
+    if (spaces?.length > 0 && !shouldRunForSpace) {
+      console.info(`\nSkipping ${filename} as it is not configured to run on ${spaces.join(', ')}\n`);
       continue;
     }
 
@@ -75,11 +75,11 @@ const migrate = async (client: ClientAPI, projectsToRun: string[]) => {
   }
 }
 
-const runMigration = async (options: { projects: string }) => {
+const runMigration = async (options: { spaces: string }) => {
   try {
-    const projectsToRun = options.projects?.split(',') ?? [];
+    const enabledSpaces = options.spaces?.split(',') ?? [];
     const client = createClient({ accessToken: MANAGEMENT_ACCESS_TOKEN });
-    await migrate(client, projectsToRun);
+    await migrate(client, enabledSpaces);
   } catch (error) {
     console.error(error);
     throw new Error('🚨 Error running migrations');

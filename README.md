@@ -48,15 +48,15 @@ npx etch-contentful-cli migration:run
 
 Runs all migrations that haven't already been run.
 
-The `migration:run` command accepts an optional projects argument `--projects <projectOne,projectTwo>`.
+The `migration:run` command accepts an optional *spaces* argument `--spaces <spaceOne,spaceTwo>`.
 
-This will filter out any migrations that don't export a matching project name as part of its `module.exports.projects` array:
+This will filter out any migrations that don't export a matching space name as part of its `module.exports.spaces` array:
 
 ```javascript
-module.exports.projects = ['projectOne', 'projectTwo'];
+module.exports.spaces = ['spaceOne', 'spaceTwo'];
 ```
 
-If no projects argument is provided, all migrations will run.
+If no spaces argument is provided, all migrations will run.
 
 #### Generate types
 
