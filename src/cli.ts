@@ -17,12 +17,16 @@ program
 program
   .command('migration:new')
   .description('Create a new migration file')
-  .argument('<migrationName>', 'Name of the migration (Eg.: "Add article"): ')
+  .argument('<migrationName>', 'Name of the migration (Eg.: "Add article")')
   .action(createMigration);
 
 program
   .command('migration:run')
   .description('Run all migrations that haven\'t already been run')
+  .option(
+    '-p, --projects <projectOne,projectTwo>',
+    'Project names (separated by commas) to run this migration for'
+  )
   .action(runMigration);
 
 program
