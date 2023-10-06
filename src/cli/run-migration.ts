@@ -44,7 +44,11 @@ const addMigrationHistory = async (client: ClientAPI, filename: string) => {
 const migrate = async (client: ClientAPI, enabledSpaces: string[]) => {
   const history = await getMigrationHistory(client);
   const files = fs.readdirSync(MIGRATION_DIR);
-  const newMigrations = difference(files, history);
+  const newMigrations = difference(files, history).sort((fileA, fileB) => {
+    const a = parseInt(fileA.split('-')[0], 10);
+    const b = parseInt(fileB.split('-')[0], 10);
+    return a - b;
+  });
 
   if (newMigrations.length > 0) {
     console.info('\n📝 Migrating:\n');
