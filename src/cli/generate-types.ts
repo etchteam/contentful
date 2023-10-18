@@ -89,7 +89,7 @@ const getContentTypes = async (client: ClientAPI): Promise<Collection<ContentTyp
   return environment.getContentTypes({ limit: 1000 });
 };
 
-const generateTypes = async (client: ClientAPI) => {
+const generateTypes = async (client: ClientAPI, filename?: string) => {
   const contentTypes = await getContentTypes(client);
   const renderedTypes = renderAllContentTypes(contentTypes);
   const typesDir = path.join(CONTENTFUL_DIR, 'types');
@@ -97,7 +97,7 @@ const generateTypes = async (client: ClientAPI) => {
   fs.mkdirSync(typesDir, { recursive: true });
 
   fs.writeFileSync(
-    path.join(typesDir, 'contentful.d.ts'),
+    path.join(typesDir, filename ?? 'contentful.d.ts'),
     `import { Document } from "@contentful/rich-text-types";\n\n${renderedTypes}\n`,
     'utf8'
   );
@@ -105,10 +105,10 @@ const generateTypes = async (client: ClientAPI) => {
   console.info(`Types generated at /integrations/contentful ✨`);
 }
 
-const runTypeGeneration = async () => {
+const runTypeGeneration = async (options?: { filename?: string }) => {
   try {
     const client = createClient({ accessToken: MANAGEMENT_ACCESS_TOKEN });
-    await generateTypes(client);
+    await generateTypes(client, options?.filename);
   } catch (error) {
     console.error(error);
     throw new Error('🚨 Error generating types');

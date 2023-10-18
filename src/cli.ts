@@ -22,7 +22,7 @@ program
 
 program
   .command('migration:run')
-  .description('Run all migrations that haven\'t already been run')
+  .description('Run all migrations that haven’t already been run')
   .option(
     '-s, --spaces <spaceOne,spaceTwo>',
     'Space names (separated by commas) to run this migration for'
@@ -32,6 +32,10 @@ program
 program
   .command('typegen')
   .description('Generate a .d.ts file from your Contentful content')
+  .option(
+    '-f, --filename <filename>',
+    'The name of the file to be generated (default: contentful.d.ts)'
+  )
   .action(generateTypes);
 
 program.parseAsync(process.argv);
