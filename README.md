@@ -64,7 +64,9 @@ If no spaces argument is provided, all migrations will run.
 npx etch-contentful-cli typegen
 ```
 
-Generate Graphql API compatible types based on your content in Contentful
+Generate GraphQL API compatible types based on your content in Contentful
+
+The `typegen` command accepts an optional *filename* argument `--filename <filename>`. If omitted the filename will default to *contentful.d.ts*.
 
 ## Validators
 
