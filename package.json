@@ -51,9 +51,9 @@
   "dependencies": {
     "@contentful/rich-text-react-renderer": "^15.12.1",
     "commander": "^9.4.1",
-    "contentful": "^9.2.13",
-    "contentful-management": "^10.21.4",
-    "contentful-migration": "^4.12.3",
+    "contentful": "^10.4.0",
+    "contentful-management": "^10.40.0",
+    "contentful-migration": "^4.17.2",
     "dotenv": "^16.0.3",
     "lodash": "^4.17.21",
     "ts-node": "^10.9.1"
