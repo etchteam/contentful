@@ -26,8 +26,11 @@
   ],
   "ts-node": {
     "transpileOnly": true,
+    "swc": true,
+    "moduleTypes": {
+      "**/*": "cjs"
+    },
     "compilerOptions": {
-      "module": "commonjs",
       "allowJs": true,
     }
   }
