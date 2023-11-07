@@ -4,8 +4,8 @@
     "declarationDir": "./dist",
     "declaration": true,
     "target": "esnext",
-    "module": "esnext",
-    "moduleResolution": "Node16",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "lib": [
       "dom",
       "dom.iterable",
