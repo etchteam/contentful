@@ -1,11 +1,12 @@
 import fs from 'fs';
 import path from 'path';
 import { createClient, ClientAPI, Collection, ContentTypeProps, ContentType } from 'contentful-management';
-import { Field, FieldType} from "contentful"
+import { ContentTypeField, ContentTypeFieldType } from 'contentful'
 import { SPACE_ID, MANAGEMENT_ACCESS_TOKEN, ENVIRONMENT, CONTENTFUL_DIR } from './config';
-import { upperFirst, camelCase } from "lodash"
+import upperFirst from 'lodash/upperFirst'
+import camelCase from 'lodash/camelCase'
 
-const renderLink = (field: Field, isArray?: boolean) => {
+const renderLink = (field: ContentTypeField, isArray?: boolean) => {
   if (field.linkType === 'Asset') {
     return `{
       url: string;
@@ -29,7 +30,7 @@ const renderLink = (field: Field, isArray?: boolean) => {
   return `{ [key: string]: unknown }`
 };
 
-const renderArray = (field: Field) => {
+const renderArray = (field: ContentTypeField) => {
   if (field.items?.type === 'Symbol') {
     return 'string[]';
   }
@@ -55,12 +56,13 @@ const renderContentType = (contentType: ContentType) => {
     .filter(field => !field.omitted)
     .map<string>(field => {
       const fieldName = field.type === 'Array' ? `${field.id}Collection` : field.id;
-      const functionMap: Record<FieldType, (field: Field) => string> = {
+      const functionMap: Record<ContentTypeFieldType, (field: ContentTypeField) => string> = {
         Array: renderArray,
         Boolean: () => 'boolean',
         Date: () => 'string',
         Integer: () => 'number',
         Link: renderLink,
+        ResourceLink: renderLink,
         Location: () => '{ lat: number, lon: number }',
         Number: () => 'number',
         Object: () => 'Record<string, any>',
