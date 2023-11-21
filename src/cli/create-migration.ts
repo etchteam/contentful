@@ -1,10 +1,11 @@
 import fs from 'fs';
 import path from 'path';
+
 import kebabCase from 'lodash/kebabCase';
+
 import { MIGRATION_DIR } from './config';
 
-const migrationTemplate =
-`import type { MigrationFunction, validator } from '@etchteam/contentful';
+const migrationTemplate = `import type { MigrationFunction, validator } from '@etchteam/contentful';
 
 const migrate: MigrationFunction = (migration) => {
   /*
@@ -67,15 +68,17 @@ module.exports = migrate; // This has to be a CJS compatible export
 
 const createMigration = (migrationName: string) => {
   const migrationFiles = fs.readdirSync(MIGRATION_DIR);
-  const migrationFilename = `${migrationFiles.length}-${kebabCase(migrationName)}.ts`;
+  const migrationFilename = `${migrationFiles.length}-${kebabCase(
+    migrationName,
+  )}.ts`;
 
   fs.writeFileSync(
     path.join(MIGRATION_DIR, migrationFilename),
     migrationTemplate,
-    'utf8'
+    'utf8',
   );
 
   console.info(`${migrationFilename} created ✨`);
-}
+};
 
 export default createMigration;

@@ -3,8 +3,7 @@ import path from 'path';
 
 import { MIGRATION_DIR } from 'cli/config';
 
-const initTemplate =
-`import type { MigrationFunction } from '@etchteam/contentful';
+const initTemplate = `import type { MigrationFunction } from '@etchteam/contentful';
 
 const migrate: MigrationFunction = (migration) => {
   // Create the migration content type
@@ -40,13 +39,9 @@ export = migrate; // eslint-disable-line
 const installMigration = () => {
   fs.mkdirSync(MIGRATION_DIR, { recursive: true });
 
-  fs.writeFileSync(
-    path.join(MIGRATION_DIR, '0-init.ts'),
-    initTemplate,
-    'utf8'
-  );
+  fs.writeFileSync(path.join(MIGRATION_DIR, '0-init.ts'), initTemplate, 'utf8');
 
   console.info(`Migrations installed at /integrations/contentful ✨`);
-}
+};
 
 export default installMigration;
