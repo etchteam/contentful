@@ -3,7 +3,7 @@ import * as symbol from './symbol';
 
 const validator = {
   richText,
-  symbol
+  symbol,
 };
 
 export default validator;

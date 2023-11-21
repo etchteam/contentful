@@ -1,8 +1,5 @@
 const enabledMarks = {
-  enabledMarks: [
-    'bold',
-    'italic',
-  ],
+  enabledMarks: ['bold', 'italic'],
   message: 'Only bold and italic marks are allowed',
 };
 
@@ -14,12 +11,8 @@ export const boldAndItalicOnly = [
   { ...enabledMarks },
   { ...nodes },
   {
-    enabledNodeTypes: [
-      'hyperlink',
-      'entry-hyperlink',
-      'asset-hyperlink'
-    ],
-    message: 'Only links are allowed'
+    enabledNodeTypes: ['hyperlink', 'entry-hyperlink', 'asset-hyperlink'],
+    message: 'Only links are allowed',
   },
 ];
 
@@ -33,9 +26,9 @@ export const boldItalicAndHeadersOnly = [
       'heading-4',
       'hyperlink',
       'entry-hyperlink',
-      'asset-hyperlink'
+      'asset-hyperlink',
     ],
-    message: 'Only headings and links are allowed'
+    message: 'Only headings and links are allowed',
   },
 ];
 
@@ -56,8 +49,8 @@ export const longFormText = [
       'hyperlink',
       'entry-hyperlink',
       'asset-hyperlink',
-      'embedded-entry-inline'
+      'embedded-entry-inline',
     ],
-    message: "Only headings, lists, images, entries and links are allowed"
+    message: 'Only headings, lists, images, entries and links are allowed',
   },
 ];

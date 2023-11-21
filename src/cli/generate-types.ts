@@ -1,10 +1,23 @@
 import fs from 'fs';
 import path from 'path';
-import { createClient, ClientAPI, Collection, ContentTypeProps, ContentType } from 'contentful-management';
-import { ContentTypeField, ContentTypeFieldType } from 'contentful'
-import { SPACE_ID, MANAGEMENT_ACCESS_TOKEN, ENVIRONMENT, CONTENTFUL_DIR } from './config';
-import upperFirst from 'lodash/upperFirst'
-import camelCase from 'lodash/camelCase'
+
+import { ContentTypeField, ContentTypeFieldType } from 'contentful';
+import {
+  createClient,
+  ClientAPI,
+  Collection,
+  ContentTypeProps,
+  ContentType,
+} from 'contentful-management';
+import camelCase from 'lodash/camelCase';
+import upperFirst from 'lodash/upperFirst';
+
+import {
+  SPACE_ID,
+  MANAGEMENT_ACCESS_TOKEN,
+  ENVIRONMENT,
+  CONTENTFUL_DIR,
+} from './config';
 
 const renderLink = (field: ContentTypeField, isArray?: boolean) => {
   if (field.linkType === 'Asset') {
@@ -19,15 +32,20 @@ const renderLink = (field: ContentTypeField, isArray?: boolean) => {
     }`;
   }
 
-  const contentTypes = field.validations.find(validation => !!validation.linkContentType)
+  const contentTypes = field.validations.find(
+    (validation) => !!validation.linkContentType,
+  );
 
   if (contentTypes) {
     return contentTypes?.linkContentType
-      .map((contentType) => `${upperFirst(camelCase(contentType))}${isArray ? 'Collection': ''}`)
+      .map(
+        (contentType) =>
+          `${upperFirst(camelCase(contentType))}${isArray ? 'Collection' : ''}`,
+      )
       .join(' | ');
   }
 
-  return `{ [key: string]: unknown }`
+  return `{ [key: string]: unknown }`;
 };
 
 const renderArray = (field: ContentTypeField) => {
@@ -39,7 +57,7 @@ const renderArray = (field: ContentTypeField) => {
     const formattedField = {
       ...field,
       linkType: field.items.linkType,
-      validations: field.items.validations || []
+      validations: field.items.validations || [],
     };
     return formattedField.linkType === 'Asset'
       ? `{\n    items: ${renderLink(formattedField, true)}[]\n  }`
@@ -47,16 +65,20 @@ const renderArray = (field: ContentTypeField) => {
   }
 
   return 'unknown[]';
-}
+};
 
 const renderContentType = (contentType: ContentType) => {
   const name = upperFirst(camelCase(contentType.sys.id));
 
   const fields = contentType.fields
-    .filter(field => !field.omitted)
-    .map<string>(field => {
-      const fieldName = field.type === 'Array' ? `${field.id}Collection` : field.id;
-      const functionMap: Record<ContentTypeFieldType, (field: ContentTypeField) => string> = {
+    .filter((field) => !field.omitted)
+    .map<string>((field) => {
+      const fieldName =
+        field.type === 'Array' ? `${field.id}Collection` : field.id;
+      const functionMap: Record<
+        ContentTypeFieldType,
+        (field: ContentTypeField) => string
+      > = {
         Array: renderArray,
         Boolean: () => 'boolean',
         Date: () => 'string',
@@ -69,23 +91,31 @@ const renderContentType = (contentType: ContentType) => {
         RichText: () => '{ json: Document }',
         Symbol: () => 'string',
         Text: () => 'string',
-      }
+      };
 
-      return `  ${fieldName}${field.required ? '' : '?'}: ${functionMap[field.type](field)}`
+      return `  ${fieldName}${field.required ? '' : '?'}: ${functionMap[
+        field.type
+      ](field)}`;
     })
     .join('\n');
 
   return [
     `export interface ${name} {\n${fields}\n}`,
-    `export interface ${name}Collection {\n  items: ${name}[]\n}`
+    `export interface ${name}Collection {\n  items: ${name}[]\n}`,
   ].join('\n\n');
+};
+
+function renderAllContentTypes(
+  contentTypes: Collection<ContentType, ContentTypeProps>,
+): string {
+  return contentTypes.items
+    .map((contentType) => renderContentType(contentType))
+    .join('\n\n');
 }
 
-function renderAllContentTypes(contentTypes: Collection<ContentType, ContentTypeProps>): string {
-  return contentTypes.items.map(contentType => renderContentType(contentType)).join("\n\n");
-}
-
-const getContentTypes = async (client: ClientAPI): Promise<Collection<ContentType, ContentTypeProps>> => {
+const getContentTypes = async (
+  client: ClientAPI,
+): Promise<Collection<ContentType, ContentTypeProps>> => {
   const space = await client.getSpace(SPACE_ID);
   const environment = await space.getEnvironment(ENVIRONMENT);
   return environment.getContentTypes({ limit: 1000 });
@@ -101,11 +131,11 @@ const generateTypes = async (client: ClientAPI, filename?: string) => {
   fs.writeFileSync(
     path.join(typesDir, filename ?? 'contentful.d.ts'),
     `import { Document } from "@contentful/rich-text-types";\n\n${renderedTypes}\n`,
-    'utf8'
+    'utf8',
   );
 
   console.info(`Types generated at /integrations/contentful ✨`);
-}
+};
 
 const runTypeGeneration = async (options?: { filename?: string }) => {
   try {

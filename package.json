@@ -22,7 +22,7 @@
   },
   "scripts": {
     "build": "microbundle src/*.ts --format modern,cjs",
-    "prepare": "npm run build"
+    "prepare": "husky install; npm run build"
   },
   "keywords": [
     "contentful",
@@ -42,10 +42,14 @@
     "@commitlint/cli": "^18.2.0",
     "@commitlint/config-conventional": "^18.1.0",
     "@contentful/rich-text-types": "^16.3.0",
+    "@etchteam/eslint-config": "^1.7.1",
     "@types/lodash": "^4.14.200",
     "@types/node": "^20.8.10",
+    "eslint": "^8.54.0",
     "husky": "^8.0.3",
+    "lint-staged": "^15.1.0",
     "microbundle": "^0.15.1",
+    "prettier": "^3.1.0",
     "typescript": "^5.2.2"
   },
   "dependencies": {
