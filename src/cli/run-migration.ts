@@ -67,6 +67,7 @@ const migrate = async (client: ClientAPI, enabledSpaces: string[]) => {
 
   for (const filename of newMigrations) {
     const filePath = path.join(MIGRATION_DIR, filename);
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const migration = require(path.join(MIGRATION_DIR, filename));
     const spaces = migration.spaces ?? [];
     const shouldRunForSpace = enabledSpaces.some((space) =>
