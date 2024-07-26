@@ -100,8 +100,8 @@ const renderContentType = (contentType: ContentType) => {
     .join('\n');
 
   return [
-    `export interface ${name} {\n${fields}\n}`,
-    `export interface ${name}Collection {\n  items: ${name}[]\n}`,
+    `export interface ${name} extends ContentfulEntry {\n${fields}\n}`,
+    `export interface ${name}Collection extends ContentfulCollection {\n  items: ${name}[]\n}`,
   ].join('\n\n');
 };
 
@@ -130,7 +130,29 @@ const generateTypes = async (client: ClientAPI, filename?: string) => {
 
   fs.writeFileSync(
     path.join(typesDir, filename ?? 'contentful.d.ts'),
-    `import { Document } from "@contentful/rich-text-types";\n\n${renderedTypes}\n`,
+    `import { Document } from "@contentful/rich-text-types";
+
+interface ContentfulEntry {
+  __typename: string;
+  sys: {
+    id: string;
+    spaceId: string;
+    environmentId: string;
+    locale: string;
+    publishedAt: string;
+    firstPublishedAt: string;
+    publishedVersion: number;
+  };
+}
+
+interface ContentfulCollection {
+  __typename: string;
+  total: number;
+  skip: number;
+  limit: number;
+}
+
+${renderedTypes}`,
     'utf8',
   );
 
