@@ -143,6 +143,12 @@ interface ContentfulEntry {
     firstPublishedAt: string;
     publishedVersion: number;
   };
+  contentfulMetadata: {
+    tags: {
+      id: string;
+      name: string;
+    }[];
+  }
 }
 
 interface ContentfulCollection {
